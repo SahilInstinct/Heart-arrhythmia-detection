@@ -21,13 +21,13 @@ for cls, symbols in enumerate(["NLRej", "AaJS", "VE", "F", "/fQ"]):
         AAMI[s] = cls
 CLASS_NAMES = "NSVFQ"
 
-
 def load_lead(rec):
     df = pd.read_csv(RAW / f"{rec}.csv")
     df.columns = [c.strip("'") for c in df.columns]
     if "MLII" not in df.columns:
         return None
     return df["MLII"].to_numpy(dtype=np.float32)
+
 
 
 def load_beats(rec):
