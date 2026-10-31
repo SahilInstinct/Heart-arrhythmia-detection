@@ -1,3 +1,7 @@
+"""Experiment: does adding beat-timing features help? 5-fold cross-validation over
+whole patient records (DS1 only), comparing morphology-only vs morphology + timing.
+Result: macro F1 0.408 -> 0.485; S F1 0.054 -> 0.336. Not part of the training path."""
+
 import numpy as np, pandas as pd
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.metrics import classification_report, f1_score

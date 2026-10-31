@@ -3,6 +3,10 @@ import numpy as np, pandas as pd
 import matplotlib.pyplot as plt, seaborn as sns
 from dataset import load, CLASSES
 
+d = load()
+df = pd.DataFrame({"rec": d["rec"], "cls": np.array(CLASSES)[d["y"]], "split": d["split"]})
+
+
 os.makedirs("reports", exist_ok=True)
 d = load()
 X, y, rec, split = d["X"], d["y"], d["rec"], d["split"]
@@ -42,3 +46,11 @@ plt.figure(figsize=(6, 4))
 sns.boxplot(data=rr, x="class", y="pre_rr", order=CLASSES)
 plt.ylabel("seconds since previous beat")
 plt.savefig("reports/rr_by_class.png", dpi=150, bbox_inches="tight")
+
+t = pd.crosstab([df.split, df.rec], df.cls)[CLASSES]
+
+for c in ["S", "F"]:
+    for s in ["DS1", "DS2"]:
+        col = t.loc[s][c].sort_values(ascending=False)
+        print(f"{c} in {s}: total {col.sum()}, top records {col.head(4).to_dict()}, "
+              f"top-1 share {col.iloc[0] / col.sum():.0%}")
