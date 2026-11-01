@@ -1,0 +1,11 @@
+.venv/
+.git/
+data/
+reports/
+ml/
+tests/
+scripts/
+infra/
+__pycache__/
+*.pyc
+*.ipynb
